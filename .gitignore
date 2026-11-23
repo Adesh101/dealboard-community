@@ -1,0 +1,12 @@
+.DS_Store
+node_modules/
+.env
+.env.*
+!*.example
+private/
+*.pdf
+*.xlsx
+*.csv
+
+# Distribute only the blank tracking sheet. Keep completed copies private.
+!docs/dealer-tracker.csv

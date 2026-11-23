@@ -1,0 +1,15 @@
+{
+  "name": "dealboard-community",
+  "version": "0.2.0",
+  "private": false,
+  "type": "module",
+  "description": "An independent car lease shopping guide, worksheet comparison tool and counteroffer calculator",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "test": "node --test tests/*.test.mjs"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  }
+}

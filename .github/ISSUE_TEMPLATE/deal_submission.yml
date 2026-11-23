@@ -1,0 +1,53 @@
+name: Community deal submission
+description: Submit a redacted lease quote for review (no personal information)
+title: "[Deal] Make Model Trim — ST — YYYY-MM"
+labels: ["deal-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Public issue. Never paste personal data, VIN, dealer contact information, banking details, signatures, or unredacted quote documents.** Quotes may expire. Submissions are reviewed before publication.
+  - type: dropdown
+    id: evidence
+    attributes:
+      label: Evidence level
+      options: [Written dealer worksheet, Signed transaction, Community report without worksheet, Broker advertisement]
+    validations:
+      required: true
+  - type: input
+    id: vehicle
+    attributes:
+      label: Vehicle year, model and trim
+      placeholder: 2027 Example Sedan Premium
+    validations:
+      required: true
+  - type: input
+    id: state
+    attributes:
+      label: Tax and registration state
+      placeholder: TX
+    validations:
+      required: true
+  - type: input
+    id: month
+    attributes:
+      label: Program month (YYYY-MM)
+      placeholder: 2026-11
+    validations:
+      required: true
+  - type: textarea
+    id: terms
+    attributes:
+      label: Complete terms and caveats
+      description: Include term, annual mileage, payment, total DAS, whether first payment is included, one-pay (if any), broker/shipping/extra fees, refundable MSDs, MSRP, selling price before rebates, tax inclusion, incentive eligibility, vehicle/demo mileage, and current availability. No personal information.
+    validations:
+      required: true
+  - type: checkboxes
+    id: redaction
+    attributes:
+      label: Redaction confirmation
+      options:
+        - label: I have excluded all personal data, full VIN, identifiers and private documents.
+          required: true
+        - label: I understand this submission does not guarantee that other shoppers can obtain the quote.
+          required: true

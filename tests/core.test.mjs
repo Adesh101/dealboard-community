@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import test from 'node:test';
+import { normalizeLease, normalizePurchase, rankCohort, cohortKey, exportAnonymousDeal } from '../core.mjs';
+const base = { months: 24, annualMiles: 10000, payment: 500, das: 1500, firstPaymentInDAS: true, brokerFee: 0, shipping: 0, extraFees: 0 };
+test('DAS includes first payment exactly once', () => { const r=normalizeLease(base); assert.equal(r.totalContractCash,13000); assert.equal(r.effectiveMonthly,541.67); });
+test('DAS excludes first payment when flag is false', () => { const r=normalizeLease({...base,firstPaymentInDAS:false}); assert.equal(r.totalContractCash,13500); });
+test('broker shipping extras amortized correctly', () => { const r=normalizeLease({...base,brokerFee:600,shipping:1200,extraFees:50}); assert.equal(r.totalContractCash,14850); assert.equal(r.effectiveMonthly,618.75); });
+test('refundable deposit excluded from expense but included in upfront cash', () => { const r=normalizeLease({...base,refundableDeposit:2000}); assert.equal(r.totalContractCash,13000); assert.equal(r.cashNeededAtSigning,3500); });
+test('onepay replaces monthly and DAS', () => { const r=normalizeLease({months:24,annualMiles:10000,onePay:12000,shipping:600});assert.equal(r.effectiveMonthly,525); });
+test('reject double-counted one pay',()=>assert.throws(()=>normalizeLease({...base,onePay:10000}),/One-pay/));
+test('reject too small DAS when includes first payment',()=>assert.throws(()=>normalizeLease({...base,das:100}),/DAS/));
+test('reject negative amounts and invalid months',()=>{assert.throws(()=>normalizeLease({...base,payment:-1}));assert.throws(()=>normalizeLease({...base,months:0}));});
+test('MSRP discount excludes rebates',()=>{const r=normalizeLease({...base,msrp:60000,sellingPrice:48000});assert.equal(r.discountPct,20);});
+test('simple purchase zero APR',()=>{const r=normalizePurchase({otd:24000,months:24,apr:0});assert.equal(r.monthly,1000);assert.equal(r.interest,0);});
+test('loan monthly payment sensible',()=>{const r=normalizePurchase({otd:36000,down:6000,months:60,apr:6});assert.ok(r.monthly>570&&r.monthly<590);assert.ok(r.interest>0);});
+test('negative trade equity adds to loan',()=>{const r=normalizePurchase({otd:30000,negativeEquity:5000,months:60,apr:0});assert.equal(r.principal,35000);});
+test('cohort isolates model, trim, state, miles and term',()=>{const a={...base,id:'a',model:'C 300',trim:'AMG Line',state:'TX'}, b={...a,id:'b',state:'CA',payment:100},c={...a,id:'c',payment:450};const ranked=rankCohort([a,b,c],a);assert.deepEqual(ranked.map(x=>x.id),['c','a']);assert.notEqual(cohortKey(a),cohortKey(b));});
+test('anonymous export excludes identity fields',()=>{const d={...base,model:'C 300',email:'private@example.com',vin:'TESTVIN123',dealerContact:'Private',notes:'Local contact details',label:'My private dealer nickname'};const x=exportAnonymousDeal(d);assert.equal('email' in x,false);assert.equal('vin' in x,false);assert.equal('dealerContact' in x,false);assert.equal('notes' in x,false);assert.equal('label' in x,false);});
