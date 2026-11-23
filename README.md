@@ -4,14 +4,14 @@ Shop a US car lease from the first inventory search to the worksheet you bring t
 
 **Try the method.** A local car is $550/month. The same car two states away is $535/month plus $900 shipping. On a 36-month lease with only the first payment due at signing, the shipped car costs **$360 more**. Its dealer needs to reach **$525/month** to match the local offer. Both quotes are fictional. You can reproduce the calculation below.
 
-[Open Dealboard](https://dealboard-community.vercel.app/) · [Read the five-step shopping guide](docs/field-guide.md) · [The Texas C 300 story](docs/c300-search.md)
+[Open Dealboard](https://dealboard-community.vercel.app/) · [GitHub repository](https://github.com/Adesh101/dealboard-community) · [Read the five-step shopping guide](docs/field-guide.md) · [The Texas C 300 story](docs/c300-search.md)
 
 ## Start your own copy
 
 You need Git and Node.js 20 or later. Run these commands from a terminal. There are no packages to install, accounts to connect or API keys to supply.
 
 ```sh
-git clone https://dealboard-community.vercel.app/source/dealboard-community
+git clone https://github.com/Adesh101/dealboard-community.git
 cd dealboard-community
 npm start
 ```
@@ -58,7 +58,7 @@ A black GLC had a competitive payment and the standard stereo. The shopper cared
 - **Working with an assistant.** Give it the anonymized brief, ask for dated comparison links, and have it draft a message you can send. The guide includes a manual version of the same workflow. [Copy the shopping prompt](docs/shop-with-an-assistant.md)
 - **Considering a purchase.** Use the buying calculator for a fixed-rate loan. It shows principal, interest and scheduled payments. For a lease-versus-buy decision, separately estimate resale value and the outstanding loan balance at your planned sale date.
 - **Understanding the math.** Effective monthly spreads the nonrefundable contract cash and separately entered expenses over the term. A refundable deposit increases cash you need upfront. Mileage overages, wear, insurance, maintenance and any unentered disposition fee can change what you ultimately spend. [Fields and assumptions](SCHEMA.md)
-- **Improving the project.** A small, reproducible correction is useful. Share a synthetic pair of worksheets that exposes a calculation issue, a sourced state-specific nuance or a message that helped you get a missing worksheet line. The contribution guide covers review and redaction. [Contributing](CONTRIBUTING.md)
+- **Improving the project.** A small, reproducible correction is useful. Share a synthetic pair of worksheets that exposes a calculation issue, a sourced state-specific nuance or a message that helped you get a missing worksheet line. The contribution guide covers review and redaction. [Contributing](CONTRIBUTING.md) · [GitHub issues](https://github.com/Adesh101/dealboard-community/issues)
 
 ## Run the checks
 
