@@ -243,7 +243,7 @@ function fillBoard(preferredKey) {
   for (const [key, label] of groups) select.add(new Option(label, key));
   if (!groups.size) select.add(new Option('Add a quote to begin', ''));
   select.disabled = !groups.size;
-  if (groups.has(selected)) select.value = selected;
+  select.value = groups.has(selected) ? selected : groups.keys().next().value ?? '';
   renderBoard();
 }
 
